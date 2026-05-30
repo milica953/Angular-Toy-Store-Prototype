@@ -1,0 +1,13 @@
+.logo{
+    font-size: 30px;
+}
+.logo-font{
+    font-family: cursive;
+}
+mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(224, 54, 111, 0.76);
+    border-bottom: 1px black solid;  
+}
