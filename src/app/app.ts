@@ -1,21 +1,34 @@
 import { Component, signal } from '@angular/core';
+import { RouterOutlet, RouterLinkWithHref, Router } from '@angular/router';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import { MatToolbar } from '@angular/material/toolbar';
-import { RouterOutlet } from '@angular/router';
-
+import { AuthService } from '../services/auth.services';
 @Component({
   selector: 'app-root',
   imports: [
     RouterOutlet,
-    MatIconModule,
+    RouterLinkWithHref,
     MatButtonModule,
-    MatToolbar
+    MatMenuModule,
+    MatToolbarModule,
+    MatIconModule
 
   ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
+
+  year = new Date().getFullYear()
+  public authService = AuthService
+
+  constructor(private router: Router) { }
+
+  doLogout() {
+    AuthService.logout()
+    this.router.navigate(['/login'])
+  }
 
 }
