@@ -1,0 +1,27 @@
+.toy-card {
+   height: 600px;
+   width: 240px;
+}
+
+.card-content {
+    margin-top: 10px;
+}
+
+mat-form-field {
+    width: 260px;
+}
+
+mat-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+   }
+
+mat-card-content {
+    flex-grow: 1;
+}
+
+mat-card-actions {
+    margin-top: auto;
+}
+

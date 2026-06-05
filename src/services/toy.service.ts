@@ -43,4 +43,4 @@ export class ToyService {
         return await client.get('/type')
     }
 }
-// nije zavresno
+
