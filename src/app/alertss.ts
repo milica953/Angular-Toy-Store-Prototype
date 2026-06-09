@@ -18,6 +18,9 @@ export class Alerts {
         })
     }
 
+    static information(text: string){
+        Swal.fire(text);
+    }
     static error(text: string) {
         Swal.fire({
             title: 'Error',

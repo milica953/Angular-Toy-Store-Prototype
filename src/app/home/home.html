@@ -1,74 +1,106 @@
-<div class="d-flex gap-10">
+<div class="page-layout">
 
-  <mat-form-field>
-    <mat-label>Search</mat-label>
-    <input matInput [(ngModel)]="search" (keyup)="filter()">
-  </mat-form-field>
+  <!-- LEFT SIDEBAR  -->
+  <aside class="sidebar">
 
+    <mat-form-field class="full">
+      <mat-label>Search</mat-label>
+      <input matInput [(ngModel)]="search" (keyup)="filter()">
+    </mat-form-field>
 
-
-  <mat-form-field>
-    <mat-label>Age group</mat-label>
-    <mat-select [(ngModel)]="ageGroup" (ngModelChange)="filter()">
-      <mat-option value="">All</mat-option>
-
-      @for (a of ageGroups(); track a.id) {
-        <mat-option [value]="a.id">
-          {{ a.name }}
-        </mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
-</div>
-  <!--
-
-  <mat-form-field>
-    <mat-label>Target group</mat-label>
-    <mat-select [(ngModel)]="targetGroup" (ngModelChange)="filter()">
-
+    <mat-form-field class="full">
+      <mat-label>Age Group</mat-label>
+      <mat-select [(ngModel)]="selectedAgeGroup" (ngModelChange)="filter()">
         <mat-option value="">All</mat-option>
-
-        @for (group of targetGroup(); track group) {
-            <mat-option [value]="group">
-                {{ group }}
-            </mat-option>
+        @for (t of ageGroups(); track t.Ageid) {
+          <mat-option [value]="t.name">{{ t.name }}</mat-option>
         }
+      </mat-select>
+    </mat-form-field>
 
-    </mat-select>
-</mat-form-field>
+    <mat-form-field class="full">
+      <mat-label>Type</mat-label>
+      <mat-select [(ngModel)]="selectedType" (ngModelChange)="filter()">
+        <mat-option value="">All</mat-option>
+        @for (t of types(); track t.Typeid) {
+          <mat-option [value]="t.name">{{ t.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
 
- 
-  <mat-form-field>
-    <mat-label>Price from</mat-label>
-    <input matInput type="number" [(ngModel)]="priceFrom" (keyup)="filter()">
-  </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Price to</mat-label>
-    <input matInput type="number" [(ngModel)]="priceTo" (keyup)="filter()">
-  </mat-form-field>
+<!--
+    ng model =  vrednost iz inputa/select-a ide u selectedType
+    i ako promeniš selectedType u kodu, UI se automatski ažurira
+    -->
+    <mat-form-field class="full">
+      <mat-label>Target Group</mat-label>
+      <mat-select [(ngModel)]="targetGroup" (ngModelChange)="filter()">
+        <mat-option value="">All</mat-option>
+        <mat-option value="girl">Girl</mat-option>
+        <mat-option value="boy">Boy</mat-option>
+        <mat-option value="all">All</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-</div> -->  
+    <mat-form-field class="full">
+      <mat-label>Production Date</mat-label>
+      <mat-select [(ngModel)]="selectedProductionDate" (ngModelChange)="filter()">
+        <mat-option value="">All</mat-option>
+        @for (d of getProductionDates(); track d) {
+          <mat-option [value]="d">{{ d }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
 
-<!-- TOYS LIST -->
-<div class="d-flex gap-5 flex-wrap">
-  @for (t of filteredToys(); track t.id) {
-    <mat-card class="toy-card" appearance="outlined">
-      <img mat-card-image [src]="utils.getImageUrl(t)" [alt]="t.name">
-      <mat-card-content >
-        <mat-card-title><strong>{{ t.name }}</strong></mat-card-title>
-        <mat-card-subtitle>{{ t.type.name }} • {{ t.ageGroup.name }}</mat-card-subtitle>
-        <p>{{ t.description }}</p>
-        <p><strong>{{ t.price }} €</strong></p>
-      </mat-card-content>
-      <mat-card-actions>
-        <a [routerLink]="`/toy/${t.id}`" matButton>
-          <mat-icon fontIcon="info" /> Details
-        </a>
-      </mat-card-actions>
+    <mat-form-field class="full">
+      <mat-label>Price From</mat-label>
+      <input matInput type="number" [(ngModel)]="priceFrom" (keyup)="filter()">
+    </mat-form-field>
 
-    </mat-card>
+    <mat-form-field class="full">
+      <mat-label>Price To</mat-label>
+      <input matInput type="number" [(ngModel)]="priceTo" (keyup)="filter()">
+    </mat-form-field>
 
-  }
+  </aside>
+
+  <!-- RIGHT CONTENT GRID -->
+  <main class="content" >
+
+    <div class="toy-grid">
+
+      @for (t of filteredToys(); track t.id) {
+        <mat-card class="toy-card" appearance="outlined">
+
+          <img mat-card-image [src]="utils.getImageUrl(t)" [alt]="t.name">
+
+          <mat-card-content>
+            <mat-card-title>{{ t.name }}</mat-card-title>
+            <mat-card-subtitle>
+              {{ t.type.name }} • {{ t.ageGroup.name }}
+            </mat-card-subtitle>
+            <p>{{ t.description }}</p>
+            <p class="price"><strong>{{ t.price }} RSD</strong></p>
+          </mat-card-content>
+
+          <mat-card-actions>
+            <a [routerLink]="`/details/${t.id}`" matButton>
+              <mat-icon fontIcon="info" /> Details
+            </a>
+
+             @if (authService.getActiveUser() != null) {
+            <a [routerLink]="`/details/${t.id}/order`" matButton>
+                <mat-icon fontIcon="shopping_cart" /> Buy
+            </a>
+            }
+          </mat-card-actions>
+
+        </mat-card>
+      }
+
+    </div>
+
+  </main>
 
 </div>

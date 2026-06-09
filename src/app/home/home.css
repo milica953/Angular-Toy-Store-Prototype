@@ -1,27 +1,57 @@
+.page-layout {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+.sidebar {
+  width: 280px;
+  min-width: 280px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  padding: 15px;
+  border-radius: 12px;
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+}
+
+.full {
+  width: 100%;
+}
+
+
+.content {
+  flex: 1;
+}
+
+
+.toy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
 .toy-card {
-   height: 600px;
-   width: 240px;
+  transition: 0.2s ease;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-.card-content {
-    margin-top: 10px;
+.toy-card:hover {
+  transform: translateY(-4px);
 }
 
-mat-form-field {
-    width: 260px;
-}
-
-mat-card {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-   }
-
-mat-card-content {
-    flex-grow: 1;
+.price {
+  margin-top: 8px;
+  font-size: 16px;
 }
 
 mat-card-actions {
     margin-top: auto;
 }
+
 
